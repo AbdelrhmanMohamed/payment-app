@@ -17,10 +17,22 @@ import {LinearGradient} from "expo-linear-gradient";
 import CustomButton from "../components/button";
 import normalize from "react-native-normalize";
 import Feather from "react-native-vector-icons/Feather";
+import {useForm, Controller} from "react-hook-form";
 
 const w = Dimensions.get("window").width;
 
 export default function Login({navigation}) {
+	const {
+		control,
+		handleSubmit,
+		formState: {errors},
+	} = useForm();
+
+	const onSubmit = (data) => {
+		navigation.navigate("Home");
+		console.log(data);
+	};
+
 	const fadeAnim = useRef(new Animated.Value(0.3)).current;
 	const fadeIn = () => {
 		Animated.timing(fadeAnim, {
@@ -31,25 +43,13 @@ export default function Login({navigation}) {
 	};
 
 	useEffect(() => {
-		// navigation.addListener("focus", () => {
-		// 	fadeIn();
-		// });
 		fadeIn();
 	}, []);
-	const [value, setValue] = React.useState();
 	const [hidden, setHidden] = React.useState(true);
-	const handleTextChange = (value) => {
-		setValue({value});
-	};
 
 	const handelRegistr = () => {
 		navigation.navigate("Registration");
 	};
-
-	const handelLogin = () => {
-		navigation.navigate("Home");
-	};
-
 	const handelBack = () => {
 		navigation.goBack();
 	};
@@ -88,23 +88,48 @@ export default function Login({navigation}) {
 					<View
 						style={{flex: 1, width: w, alignItems: "center", justifyContent: "center"}}
 					>
-						<TextInput
-							placeholder="رقم الحساب"
-							onChangeText={handleTextChange}
-							style={[Gstyle.input, {color:COLORS.transparent}]}
-							keyboardType="phone-pad"
+						<Controller
+							control={control}
+							render={({field: {onChange, onBlur, value}}) => (
+								<TextInput
+									style={[Gstyle.input, {backgroundColor: COLORS.transparent}]}
+									onBlur={onBlur}
+									onChangeText={(value) => onChange(value)}
+									value={value}
+									placeholder="رقم الحساب"
+									keyboardType="phone-pad"
+								/>
+							)}
+							name="custKey"
+							rules={{
+								required: true,
+							}}
 						/>
 						<Feather style={styles.icon} name="user" size={25} color={COLORS.blueGray} />
+						{errors.custKey && (
+							<Text style={[styles.lable, styles.error]}>رقم الحساب غير صحيح</Text>
+						)}
 					</View>
 					<View
 						style={{flex: 1, width: w, alignItems: "center", justifyContent: "center"}}
 					>
-						<TextInput
-							placeholder="كلمة المرور"
-							onChangeText={handleTextChange}
-							style={[Gstyle.input , {color:COLORS.transparent}]}
-							secureTextEntry={hidden ? true : false}
-							textContentType="password"
+						<Controller
+							control={control}
+							render={({field: {onChange, onBlur, value}}) => (
+								<TextInput
+									style={[Gstyle.input, {backgroundColor: COLORS.transparent}]}
+									onBlur={onBlur}
+									onChangeText={(value) => onChange(value)}
+									value={value}
+									placeholder="كلمة المرور"
+									secureTextEntry={hidden ? true : false}
+									textContentType="password"
+								/>
+							)}
+							name="password"
+							rules={{
+								required: true,
+							}}
 						/>
 						<TouchableOpacity style={styles.icon} onPress={handelTogglePassword}>
 							{hidden ? (
@@ -113,12 +138,15 @@ export default function Login({navigation}) {
 								<Feather name="eye" size={25} color={COLORS.blueGray} />
 							)}
 						</TouchableOpacity>
+						{errors.password && (
+							<Text style={[styles.lable, styles.error]}>كلمة المرور غير صحيح</Text>
+						)}
 					</View>
 					<CustomButton
 						text="دخول"
 						textStyle={styles.textBtn}
 						btnStyle={styles.submit}
-						onPress={handelLogin}
+						onPress={handleSubmit(onSubmit)}
 					/>
 				</View>
 				<View style={styles.signUp}>
@@ -146,7 +174,9 @@ export default function Login({navigation}) {
 									ليس لديك حساب؟
 								</Text>
 								<TouchableOpacity onPress={handelRegistr}>
-									<Text style={[styles.text, {...FONTS.h4}]}>إنشاء جديد</Text>
+									<Text style={[styles.text, {...FONTS.h4, color: COLORS.secondary2}]}>
+										إنشاء جديد
+									</Text>
 								</TouchableOpacity>
 							</View>
 						</View>
@@ -159,10 +189,10 @@ export default function Login({navigation}) {
 
 const styles = StyleSheet.create({
 	header: {
-		height:'55%',
-		position:'absolute',
-		top:0,
-		width:"100%",
+		height: "55%",
+		position: "absolute",
+		top: 0,
+		width: "100%",
 	},
 	background: {
 		position: "absolute",
@@ -221,5 +251,17 @@ const styles = StyleSheet.create({
 		right: 20,
 		width: 30,
 		alignSelf: "center",
+	},
+	lable: {
+		marginRight: 0,
+		alignSelf: "flex-start",
+		paddingHorizontal: normalize(13),
+		fontFamily: "cairo-bold",
+		fontSize: normalize(13),
+		color: "#A9A9A9",
+	},
+	error: {
+		color: COLORS.secondary,
+		fontFamily: "cairo-bold",
 	},
 });

@@ -1,4 +1,4 @@
-import {StyleSheet, Platform, StatusBar,Dimensions} from "react-native";
+import {StyleSheet,Dimensions} from "react-native";
 import normalize from "react-native-normalize";
 import {COLORS} from "./theme";
 
@@ -23,6 +23,7 @@ export default StyleSheet.create({
 		borderColor: COLORS.blueGray,
 		borderWidth: 1,
 		backgroundColor: "#fafafa",
-		width:"95%"
+		width:"95%",
+		color:COLORS.black
 	},
 });

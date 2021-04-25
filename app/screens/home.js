@@ -109,7 +109,7 @@ export default function Home({navigation}) {
 							></Image>
 						</View>
 						<View>
-							<Text style={styles.label}>ترشيد الاستهلاك</Text>
+							<Text style={styles.label}>ترشيد الاستخدام</Text>
 						</View>
 					</TouchableOpacity>
 				</View>
@@ -164,11 +164,11 @@ const styles = StyleSheet.create({
 	cards: {
 		flexWrap: "wrap",
 		justifyContent: "space-between",
-		paddingHorizontal: 16,
+		paddingHorizontal: normalize(16,'width'),
 		flexDirection: "row",
 		flex: 1,
 		marginTop: 8,
-		marginBottom: 33,
+		marginBottom:normalize(40,'height'),
 	},
 	card: {
 		width: "48.5%",

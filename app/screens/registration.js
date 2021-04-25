@@ -2,7 +2,6 @@ import React, {useRef} from "react";
 import {
 	StyleSheet,
 	View,
-	SafeAreaView,
 	Text,
 	ScrollView,
 	Dimensions,
@@ -239,7 +238,7 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center",
 		marginVertical: normalize(10, "height"),
-		paddingVertical: normalize(6, "height"),
+		paddingVertical: normalize(10, "height"),
 	},
 	title: {
 		color: COLORS.white,
@@ -257,7 +256,7 @@ const styles = StyleSheet.create({
 		paddingVertical: 8,
 	},
 	submit: {
-		backgroundColor: COLORS.primary,
+		backgroundColor:COLORS.secondary2,
 		borderWidth: 1,
 		marginVertical: normalize(20, "height"),
 		marginBottom: normalize(30, "height"),
@@ -265,7 +264,7 @@ const styles = StyleSheet.create({
 		borderWidth: 0,
 	},
 	textBtn: {
-		color: "#fff",
+		color: COLORS.black,
 	},
 	lable: {
 		marginRight: 0,
