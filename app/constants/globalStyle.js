@@ -8,11 +8,11 @@ const w = Dimensions.get("window").width;
 export default StyleSheet.create({
 	AndroidSafeArea: {
 		backgroundColor: "#fff",
-		paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+		paddingTop: 20,
 		flex:1
 	},
 	input: {
-		height: normalize(58, "height"),
+		height: normalize(62, "height"),
 		minWidth:'50%',
 		padding: 10,
 		marginTop: 6,

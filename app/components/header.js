@@ -6,40 +6,35 @@ import {
 	TouchableOpacity,
 	Image,
 	Dimensions,
-	SafeAreaView,
 } from "react-native";
-import {FONTS, COLORS, SIZES} from "../constants";
+import normalize from "react-native-normalize";
+import {COLORS, SIZES} from "../constants";
 
 export default function Header(props) {
 	return (
-		<SafeAreaView style={styles.root}>
-			{props.icon ?
-			<TouchableOpacity style={styles.menu} onPress={props.onPress}>
-				<Image
-					source={props.icon}
-					resizeMode="contain"
-					style={{
-						width: 22,
-						height: 22,
-					}}
-				/>
-			</TouchableOpacity> : null}
+		<View style={styles.root}>
+			{props.icon ? (
+				<TouchableOpacity style={styles.menu} onPress={props.onPress}>
+					{props.icon}
+				</TouchableOpacity>
+			) : null}
 
 			<View style={{flex: 1}}>
 				<Text style={styles.text}>{props.text}</Text>
 			</View>
-			{props.logo ?
-			<TouchableOpacity style={styles.icon} >
-				<Image
-					source={props.logo}
-					resizeMode="contain"
-					style={{
-						width: 50,
-						height: 50,
-					}}
-				></Image>
-			</TouchableOpacity> : null}
-		</SafeAreaView>
+			{props.logo ? (
+				<TouchableOpacity style={styles.icon}>
+					<Image
+						source={props.logo}
+						resizeMode="contain"
+						style={{
+							width: normalize(45),
+							height: normalize(45),
+						}}
+					></Image>
+				</TouchableOpacity>
+			) : null}
+		</View>
 	);
 }
 
@@ -56,24 +51,23 @@ const styles = StyleSheet.create({
 		minHeight: 60,
 	},
 	icon: {
-		width: 55,
+		width: normalize(50),
 		paddingHorizontal: 12,
 		justifyContent: "center",
 		alignItems: "center",
 		borderWidth: 1,
 		borderRadius: 200,
-		height: 55,
+		height: normalize(50),
 		borderColor: COLORS.lightGray3,
 	},
-	menu:{
-		paddingHorizontal: 12,
-		
+	menu: {
+		paddingHorizontal: 2,
 	},
 	text: {
-		color:COLORS.black,
+		color: COLORS.black,
 		fontFamily: "cairo-regular",
 		fontSize: SIZES.h4,
 		textAlign: "center",
-
+		alignSelf:"center"
 	},
 });

@@ -1,25 +1,24 @@
-import React ,{useRef, useEffect} from "react";
+import React, {useRef, useEffect} from "react";
 import {
 	StyleSheet,
 	View,
-	SafeAreaView,
 	Animated,
 	Text,
 	ScrollView,
 	Dimensions,
 	TouchableOpacity,
-	Image
+	Image,
+	TextInput,
 } from "react-native";
+import {SafeAreaProvider} from "react-native-safe-area-context";
 import Header from "../components/header";
 import {Gstyle, COLORS, Icons, FONTS} from "../constants";
 import {LinearGradient} from "expo-linear-gradient";
-import {TextInput} from "react-native";
 import CustomButton from "../components/button";
 import normalize from "react-native-normalize";
+import Feather from "react-native-vector-icons/Feather";
 
-const h = Dimensions.get("window").height;
 const w = Dimensions.get("window").width;
-
 
 export default function Login({navigation}) {
 	const fadeAnim = useRef(new Animated.Value(0.3)).current;
@@ -28,8 +27,7 @@ export default function Login({navigation}) {
 			toValue: 1,
 			duration: 1200,
 			useNativeDriver: true,
-		}).start(() => {
-		});
+		}).start(() => {});
 	};
 
 	useEffect(() => {
@@ -39,62 +37,83 @@ export default function Login({navigation}) {
 		fadeIn();
 	}, []);
 	const [value, setValue] = React.useState();
+	const [hidden, setHidden] = React.useState(true);
 	const handleTextChange = (value) => {
 		setValue({value});
 	};
 
-	const handelRegistr = () =>{
-        navigation.navigate('Registration')
-	}
+	const handelRegistr = () => {
+		navigation.navigate("Registration");
+	};
 
 	const handelLogin = () => {
-		navigation.navigate('Home')
-	}
+		navigation.navigate("Home");
+	};
 
 	const handelBack = () => {
-		navigation.goBack()
-	}
-
+		navigation.goBack();
+	};
+	const handelTogglePassword = () => {
+		setHidden(!hidden);
+	};
+	const IconBack = () => {
+		return <Feather name="arrow-right" size={26} color={COLORS.black} />;
+	};
 	return (
-		<SafeAreaView style={Gstyle.AndroidSafeArea}>
+		<SafeAreaProvider style={{flex: 1, backgroundColor: "#fff"}}>
 			<ScrollView>
-				<Header icon={Icons.back} onPress={handelBack} text="تسجيل الدخول" />
-				<View style={styles.header}>
-					<LinearGradient
-						// Background Linear Gradient
-						colors={[`${COLORS.primary}`, `${COLORS.white}`]}
-						style={styles.background}
-						locations={[0.1, 0.9]}
-					/>
-				</View>
-					<Animated.View style={[styles.logo,{opacity: fadeAnim}]} >
+				<LinearGradient
+					// Background Linear Gradient
+					colors={[`${COLORS.primary}`, `${COLORS.white}`]}
+					style={styles.background}
+					locations={[0.1, 0.9]}
+					style={styles.header}
+				/>
+				<Header icon={<IconBack />} onPress={handelBack} text="تسجيل الدخول" />
+
+				<Animated.View style={[styles.logo, {opacity: fadeAnim}]}>
 					<Image
 						source={Icons.logo}
 						resizeMode="contain"
 						style={{
-							width: 100,
-							height: 100,
+							width: normalize(120),
+							height: normalize(120),
 						}}
 					/>
-					<Text style={[{textAlign: "center", marginVertical: 6}, {...FONTS.h4}]}>
+					<Text style={[{textAlign: "center", marginVertical: 6}, {...FONTS.h3}]}>
 						شركة مياه الشرب والصرف الصحى بالشروق
 					</Text>
 				</Animated.View>
 				<View style={styles.form}>
-					<TextInput
-						value={value}
-						placeholder="رقم الحساب"
-						onChangeText={handleTextChange}
-						style={Gstyle.input}
-						keyboardType="numeric"
-
-					/>
-					<TextInput
-						value={value}
-						placeholder="كلمة المرور"
-						onChangeText={handleTextChange}
-						style={Gstyle.input}
-					/>
+					<View
+						style={{flex: 1, width: w, alignItems: "center", justifyContent: "center"}}
+					>
+						<TextInput
+							placeholder="رقم الحساب"
+							onChangeText={handleTextChange}
+							style={[Gstyle.input, {color:COLORS.transparent}]}
+							keyboardType="phone-pad"
+						/>
+						<Feather style={styles.icon} name="user" size={25} color={COLORS.blueGray} />
+					</View>
+					<View
+						style={{flex: 1, width: w, alignItems: "center", justifyContent: "center"}}
+					>
+						<TextInput
+							placeholder="كلمة المرور"
+							onChangeText={handleTextChange}
+							style={[Gstyle.input , {color:COLORS.transparent}]}
+							secureTextEntry={hidden ? true : false}
+							textContentType="password"
+						/>
+						<TouchableOpacity style={styles.icon} onPress={handelTogglePassword}>
+							{hidden ? (
+								<Feather name="eye-off" size={25} color={COLORS.blueGray} />
+							) : (
+								<Feather name="eye" size={25} color={COLORS.blueGray} />
+							)}
+						</TouchableOpacity>
+					</View>
 					<CustomButton
 						text="دخول"
 						textStyle={styles.textBtn}
@@ -123,7 +142,7 @@ export default function Login({navigation}) {
 							}}
 						>
 							<View style={styles.regist}>
-								<Text style={[styles.text, {fontSize: 18, lineHeight: 28}]}>
+								<Text style={[styles.text, {fontSize: 18, lineHeight: 33}]}>
 									ليس لديك حساب؟
 								</Text>
 								<TouchableOpacity onPress={handelRegistr}>
@@ -134,13 +153,16 @@ export default function Login({navigation}) {
 					</View>
 				</View>
 			</ScrollView>
-		</SafeAreaView>
+		</SafeAreaProvider>
 	);
 }
 
 const styles = StyleSheet.create({
 	header: {
-		height: normalize(80),
+		height:'55%',
+		position:'absolute',
+		top:0,
+		width:"100%",
 	},
 	background: {
 		position: "absolute",
@@ -152,19 +174,19 @@ const styles = StyleSheet.create({
 	logo: {
 		justifyContent: "center",
 		alignItems: "center",
-		marginBottom: 10,
-		marginTop: 10,
+		marginBottom: normalize(15),
+		marginTop: normalize(50),
 	},
 	text: {
 		textAlign: "center",
 		fontFamily: "cairo-regular",
 		paddingHorizontal: 2,
-		color:"#777"
+		color: "#777",
 	},
 	form: {
 		flex: 1,
 		alignItems: "center",
-		backgroundColor: "#fff",
+		backgroundColor: COLORS.transparent,
 	},
 	input: {
 		width: "90%",
@@ -188,10 +210,16 @@ const styles = StyleSheet.create({
 	textBtn: {
 		color: "#fff",
 	},
-	regist:{
+	regist: {
 		flexDirection: "row",
 		justifyContent: "center",
 		alignItems: "center",
-		marginTop:normalize(25,'height')
-	}
+		marginTop: normalize(25, "height"),
+	},
+	icon: {
+		position: "absolute",
+		right: 20,
+		width: 30,
+		alignSelf: "center",
+	},
 });

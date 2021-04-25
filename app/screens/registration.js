@@ -10,9 +10,13 @@ import {
 } from "react-native";
 import {useForm, Controller} from "react-hook-form";
 import Header from "../components/header";
-import {Gstyle, COLORS, Icons, FONTS} from "../constants";
+import {Gstyle, COLORS, FONTS} from "../constants";
 import CustomButton from "../components/button";
 import normalize from "react-native-normalize";
+import Feather from "react-native-vector-icons/Feather";
+import {SafeAreaProvider} from "react-native-safe-area-context";
+
+
 
 const w = Dimensions.get("window").width;
 
@@ -33,11 +37,14 @@ export default function Registration({navigation}) {
 	const handelBack = () => {
 		navigation.goBack();
 	};
+	const IconBack = () => {
+		return <Feather name="arrow-right" size={26} color={COLORS.black} />
+	};
 	const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 	return (
-		<SafeAreaView style={Gstyle.AndroidSafeArea}>
-			<Header icon={Icons.back} onPress={handelBack} text="انشاء حساب جديد" />
+		<SafeAreaProvider style={Gstyle.AndroidSafeArea}>
+			<Header icon={<IconBack />} onPress={handelBack} text="انشاء حساب جديد" />
 			<ScrollView
 				contentContainerStyle={{alignItems: "center", justifyContent: "center"}}
 			>
@@ -220,7 +227,7 @@ export default function Registration({navigation}) {
 					onPress={handleSubmit(onSubmit)}
 				/>
 			</ScrollView>
-		</SafeAreaView>
+		</SafeAreaProvider>
 	);
 }
 

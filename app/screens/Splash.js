@@ -2,6 +2,7 @@ import React, {useRef, useEffect} from "react";
 import {LinearGradient} from "expo-linear-gradient";
 import {Animated, StyleSheet, Image, Text, View} from "react-native";
 import {COLORS, SIZES} from "../constants";
+import {SafeAreaProvider} from "react-native-safe-area-context";
 
 export default function Splash({navigation}) {
 	const fadeAnim = useRef(new Animated.Value(0.3)).current;
@@ -22,7 +23,7 @@ export default function Splash({navigation}) {
 		fadeIn();
 	}, []);
 	return (
-		<View style={styles.root}>
+		<SafeAreaProvider style={styles.root}>
 			<LinearGradient
 				// Background Linear Gradient
 				colors={[`${COLORS.primary}`, `${COLORS.white}`]}
@@ -35,7 +36,7 @@ export default function Splash({navigation}) {
 			<Animated.View style={{opacity: fadeAnim}}>
 				<Text style={styles.text}>شركة مياه الشرب والصرف الصحى بالشروق</Text>
 			</Animated.View>
-		</View>
+		</SafeAreaProvider>
 	);
 }
 
@@ -44,6 +45,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: "center",
 		alignItems: "center",
+		backgroundColor:"#fff"
 	},
 	background: {
 		position: "absolute",
