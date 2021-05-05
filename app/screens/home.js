@@ -1,16 +1,27 @@
 import React from "react";
 import {StyleSheet, View, Text, TouchableOpacity, ScrollView, Image} from "react-native";
-import {Gstyle, Icons, COLORS, SIZES} from "../constants";
+import {Gstyle, Icons, COLORS} from "../constants";
 import Header from "../components/header";
 import FawryBtn from "../components/fawry-btn";
 import Feather from "react-native-vector-icons/Feather";
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import normalize from "react-native-normalize";
+// import Ticket from "../assets/images/ticket";
 
 export default function Home({navigation}) {
 	const handelDrawer = () => {
 		navigation.openDrawer();
 	};
+
+	const handelNavigations = (val) => {
+		if (val === "reading") {
+			return navigation.navigate("Reading");
+		}
+		if (val === "enquery") {
+			return navigation.navigate("Enquery");
+		}
+	};
+
 	const IconMenu = () => {
 		return <Feather name="menu" size={26} color={COLORS.black} />;
 	};
@@ -52,7 +63,10 @@ export default function Home({navigation}) {
 					</View>
 				</View>
 				<View style={styles.cards}>
-					<TouchableOpacity style={styles.card}>
+					<TouchableOpacity
+						style={styles.card}
+						onPress={() => handelNavigations("enquery")}
+					>
 						<View style={styles.icon}>
 							<Image
 								source={Icons.bill}
@@ -67,7 +81,10 @@ export default function Home({navigation}) {
 							<Text style={styles.label}>الاستعلام</Text>
 						</View>
 					</TouchableOpacity>
-					<TouchableOpacity style={styles.card}>
+					<TouchableOpacity
+						style={styles.card}
+						onPress={() => handelNavigations("reading")}
+					>
 						<View style={[styles.icon, styles.meter]}>
 							<Image
 								source={Icons.meter}
@@ -117,13 +134,14 @@ export default function Home({navigation}) {
 		</SafeAreaProvider>
 	);
 }
+
 const styles = StyleSheet.create({
 	bill: {
 		borderColor: COLORS.lightGray3,
 		borderWidth: 2,
 		marginTop: normalize(18, "height"),
 		marginBottom: normalize(12, "height"),
-		marginHorizontal: normalize(16, 'width'),
+		marginHorizontal: normalize(16, "width"),
 		flexDirection: "row",
 		borderRadius: 12,
 		backgroundColor: "#fff",
@@ -144,31 +162,31 @@ const styles = StyleSheet.create({
 	billInfo: {
 		height: "100%",
 		width: "94%",
-		padding: normalize(6,'height'),
+		padding: normalize(6, "height"),
 	},
 	text: {
 		color: "#fff",
 		textAlign: "center",
 		fontFamily: "cairo-regular",
-		fontSize: normalize(17),
+		fontSize: normalize(16),
 	},
 	texInfo: {
 		fontFamily: "cairo-bold",
-		fontSize: normalize(17),
+		fontSize: normalize(16),
 		color: COLORS.black,
 		textAlign: "center",
 		borderColor: "#eee",
 		borderBottomWidth: 1,
-		padding: normalize(6,'height'),
+		padding: normalize(6, "height"),
 	},
 	cards: {
 		flexWrap: "wrap",
 		justifyContent: "space-between",
-		paddingHorizontal: normalize(16,'width'),
+		paddingHorizontal: normalize(16, "width"),
 		flexDirection: "row",
 		flex: 1,
 		marginTop: 8,
-		marginBottom:normalize(40,'height'),
+		marginBottom: normalize(40, "height"),
 	},
 	card: {
 		width: "48.5%",

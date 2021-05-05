@@ -1,7 +1,15 @@
 import React, {useState} from "react";
 import {NavigationContainer} from "@react-navigation/native";
 import {createStackNavigator} from "@react-navigation/stack";
-import {Home, Reading, Enquery, Splash, Onboarding, Login , Registration} from "./app/screens";
+import {
+	Home,
+	Reading,
+	Enquery,
+	Splash,
+	Onboarding,
+	Login,
+	Registration,
+} from "./app/screens";
 // import Tabs from "./app/navigation/tabs";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import * as Font from "expo-font";
@@ -85,7 +93,14 @@ function App() {
 					}}
 				/>
 				<Stack.Screen name="Reading" component={Reading} />
-				<Stack.Screen name="Enquery" component={Enquery} />
+				<Stack.Screen
+					name="Enquery"
+					component={Enquery}
+					options={{
+						headerShown: false,
+						gestureEnabled: false,
+					}}
+				/>
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

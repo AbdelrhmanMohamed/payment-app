@@ -1,10 +1,10 @@
 import React from "react";
-import {Image, StyleSheet, Text, View} from "react-native";
+import {Image, StyleSheet, Text, TouchableOpacity} from "react-native";
 import normalize from "react-native-normalize";
 
 export default function FawryBtn() {
 	return (
-		<View style={styles.root}>
+		<TouchableOpacity style={styles.root}>
 			<Image
 				source={require("../assets/images/fawry.png")}
 				resizeMode="contain"
@@ -14,18 +14,18 @@ export default function FawryBtn() {
 				}}
 			/>
 			<Text style={styles.text}>الدفع من فورى</Text>
-		</View>
+		</TouchableOpacity>
 	);
 }
 
 const styles = StyleSheet.create({
 	root: {
-		maxWidth:'70%',
+		maxWidth:'100%',
 		flexDirection: "row",
 		justifyContent: "space-between",
 		alignItems: "center",
 		backgroundColor:"#eee",
-		marginTop:normalize(6,'height'),
+		// marginTop:normalize(6,'height'),
 		paddingHorizontal:normalize(6, 'width')
 	},
 	text: {

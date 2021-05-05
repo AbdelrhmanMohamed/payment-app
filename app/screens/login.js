@@ -18,8 +18,11 @@ import CustomButton from "../components/button";
 import normalize from "react-native-normalize";
 import Feather from "react-native-vector-icons/Feather";
 import {useForm, Controller} from "react-hook-form";
+import * as Localization from "expo-localization";
+// import i18n from 'i18n-js';
 
 const w = Dimensions.get("window").width;
+const rtl = Localization.isRTL;
 
 export default function Login({navigation}) {
 	const {
@@ -32,7 +35,6 @@ export default function Login({navigation}) {
 		navigation.navigate("Home");
 		console.log(data);
 	};
-
 	const fadeAnim = useRef(new Animated.Value(0.3)).current;
 	const fadeIn = () => {
 		Animated.timing(fadeAnim, {
@@ -57,10 +59,14 @@ export default function Login({navigation}) {
 		setHidden(!hidden);
 	};
 	const IconBack = () => {
-		return <Feather name="arrow-right" size={26} color={COLORS.black} />;
+		if (rtl) {
+			return <Feather name="arrow-right" size={26} color={COLORS.black} />;
+		} else {
+			return <Feather name="arrow-left" size={26} color={COLORS.black} />;
+		}
 	};
 	return (
-		<SafeAreaProvider style={{flex: 1, backgroundColor: "#fff"}}>
+		<SafeAreaProvider style={Gstyle.AndroidSafeArea}>
 			<ScrollView>
 				<LinearGradient
 					// Background Linear Gradient
@@ -102,7 +108,7 @@ export default function Login({navigation}) {
 							)}
 							name="custKey"
 							rules={{
-								required: true,
+								required: false,
 							}}
 						/>
 						<Feather style={styles.icon} name="user" size={25} color={COLORS.blueGray} />
@@ -128,7 +134,7 @@ export default function Login({navigation}) {
 							)}
 							name="password"
 							rules={{
-								required: true,
+								required: false,
 							}}
 						/>
 						<TouchableOpacity style={styles.icon} onPress={handelTogglePassword}>
@@ -169,7 +175,7 @@ export default function Login({navigation}) {
 								alignItems: "center",
 							}}
 						>
-							<View style={styles.regist}>
+							<View style={[styles.regist, {flexDirection: rtl ? "row" : "row-reverse"}]}>
 								<Text style={[styles.text, {fontSize: 18, lineHeight: 33}]}>
 									ليس لديك حساب؟
 								</Text>
@@ -241,7 +247,6 @@ const styles = StyleSheet.create({
 		color: "#fff",
 	},
 	regist: {
-		flexDirection: "row",
 		justifyContent: "center",
 		alignItems: "center",
 		marginTop: normalize(25, "height"),

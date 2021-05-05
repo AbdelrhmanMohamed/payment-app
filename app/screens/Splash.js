@@ -9,7 +9,7 @@ export default function Splash({navigation}) {
 	const fadeIn = () => {
 		Animated.timing(fadeAnim, {
 			toValue: 1,
-			duration: 3000,
+			duration: 1000,
 			useNativeDriver: true,
 		}).start(() => {
 			navigation.navigate("Onboarding");
