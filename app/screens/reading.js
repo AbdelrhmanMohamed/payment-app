@@ -19,6 +19,7 @@ import ConfirmInput from "../components/confirm-input";
 import * as ImagePicker from "expo-image-picker";
 import {TouchableOpacity} from "react-native-gesture-handler";
 import * as Localization from "expo-localization";
+import { Camera } from 'expo-camera';
 
 const w = Dimensions.get("window").width;
 const rtl = Localization.isRTL;
@@ -27,7 +28,9 @@ export default function Reading({navigation}) {
 	const [image, setImage] = useState(null);
 	const [data, setData] = useState({});
 
-	useEffect(() => {}, []);
+	useEffect(() => {
+		
+	  }, []);
 
 	const handleSubmit = () => {
 		console.log(data);
@@ -37,15 +40,16 @@ export default function Reading({navigation}) {
 		if (Platform.OS !== "web") {
 			const {status} = await ImagePicker.requestMediaLibraryPermissionsAsync();
 			if (status !== "granted") {
-				alert("Sorry, we need camera roll permissions to make this work!");
+				alert("للأسف , يجب السماح بستخدام الكاميرا لتتمكن من رفع صورة العداد");
 			} else {
 				pickImage();
 			}
 		}
 	};
+
 	const pickImage = async () => {
 		let result = await ImagePicker.launchImageLibraryAsync({
-			mediaTypes: ImagePicker.MediaTypeOptions.All,
+			mediaTypes: ImagePicker.MediaTypeOptions.Images,
 			allowsEditing: true,
 			aspect: [4, 3],
 			quality: 1,
@@ -165,14 +169,14 @@ const styles = StyleSheet.create({
 		elevation: 1,
 	},
 	circle: {
-		width: normalize(60, "width"),
-		height: normalize(60, "height"),
+		width: 60,
+		height: 60,
 		backgroundColor: COLORS.secondary2,
 		borderWidth: normalize(6),
 		borderColor: "#fff",
-		borderRadius: normalize(25),
+		borderRadius: 60 / 2,
 		position: "absolute",
-		top: normalize(-30, "height"),
+		top: -30,
 		alignItems: "center",
 		justifyContent: "center",
 	},
@@ -210,7 +214,7 @@ const styles = StyleSheet.create({
 		padding: normalize(12),
 		alignItems: "center",
 		borderColor: COLORS.background,
-		maxHeight: normalize(350, "height"),
+		minHeight: normalize(140, "height"),
 		borderStyle: "dashed",
 		borderRadius: 2,
 	},

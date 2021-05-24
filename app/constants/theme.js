@@ -14,12 +14,13 @@ export const COLORS = {
 	white: "#FFFFFF",
 
 	lightGray: "#F5F5F6",
-	lightGray2: "#F6F6F7",
+	lightGray2: "#ccc",
 	lightGray3: "#eee",
 	lightGray4: "#A6A6A6",
 	transparent: "transparent",
 	darkgray: "#898C95",
 	blueGray: "#C0C7CC",
+	darkBlue:"#A7ABB0"
 };
 
 export const SIZES = {

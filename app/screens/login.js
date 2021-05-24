@@ -67,16 +67,15 @@ export default function Login({navigation}) {
 	};
 	return (
 		<SafeAreaProvider style={Gstyle.AndroidSafeArea}>
+			<LinearGradient
+				// Background Linear Gradient
+				colors={[`${COLORS.primary}`, `${COLORS.white}`]}
+				style={styles.background}
+				locations={[0.1, 0.9]}
+				style={styles.header}
+			/>
 			<ScrollView>
-				<LinearGradient
-					// Background Linear Gradient
-					colors={[`${COLORS.primary}`, `${COLORS.white}`]}
-					style={styles.background}
-					locations={[0.1, 0.9]}
-					style={styles.header}
-				/>
 				<Header icon={<IconBack />} onPress={handelBack} text="تسجيل الدخول" />
-
 				<Animated.View style={[styles.logo, {opacity: fadeAnim}]}>
 					<Image
 						source={Icons.logo}

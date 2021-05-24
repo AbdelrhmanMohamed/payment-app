@@ -4,7 +4,9 @@ import CodeInput from "react-native-confirmation-code-input";
 import normalize from "react-native-normalize";
 import {COLORS} from "../constants";
 import Feather from "react-native-vector-icons/Feather";
+import * as Localization from "expo-localization";
 
+const rtl = Localization.isRTL;
 const w = Dimensions.get("window").width;
 
 const ConfirmInput = (props) => {
@@ -21,7 +23,7 @@ const ConfirmInput = (props) => {
 				ref={refs}
 				activeColor={COLORS.secondary2}
 				inactiveColor={COLORS.transparent}
-				autoFocus={true}
+				autoFocus={false}
 				ignoreCase={true}
 				codeInputStyle={styles.cell}
 				inputPosition="center"
@@ -29,7 +31,7 @@ const ConfirmInput = (props) => {
 				space={12}
 				keyboardType="phone-pad"
 				className="border-circle"
-				containerStyle={styles.containerStyle}
+				containerStyle={[styles.containerStyle, {flexDirection: rtl ? 'row-reverse' : 'row'}]}
 				onFulfill={(meter_reading) => props.onFulfill(meter_reading)}
 				onCodeChange={(code) => {
 					setMeter_reading(code);
@@ -62,7 +64,6 @@ const styles = StyleSheet.create({
 		backgroundColor: COLORS.background,
 	},
 	containerStyle: {
-		flexDirection: "row-reverse",
 		alignItems: "center",
 		margin: 0,
 		paddingVertical: 0,

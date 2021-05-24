@@ -8,7 +8,7 @@ const w = Dimensions.get("window").width;
 export default StyleSheet.create({
 	AndroidSafeArea: {
 		backgroundColor: "#fff",
-		paddingTop: 20,
+		paddingTop: 30,
 		flex:1
 	},
 	input: {

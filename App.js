@@ -2,28 +2,35 @@ import React, {useState} from "react";
 import {NavigationContainer} from "@react-navigation/native";
 import {createStackNavigator} from "@react-navigation/stack";
 import {
-	Home,
 	Reading,
 	Enquery,
 	Splash,
 	Onboarding,
 	Login,
 	Registration,
+	Notifications,
+	Home,
 } from "./app/screens";
 // import Tabs from "./app/navigation/tabs";
+import DrawerContent from "./app/navigation/drawer-content";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
+import {COLORS} from "./app/constants";
+import normalize from "react-native-normalize";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 function DrawerRoutes() {
 	return (
-		<Drawer.Navigator initialRouteName="Home">
-			<Drawer.Screen name="Home" component={Home} />
-			<Drawer.Screen name="Reading" component={Reading} />
-			<Drawer.Screen name="خروج" component={Onboarding} />
+		<Drawer.Navigator
+			initialRouteName="Home"
+			drawerStyle={{
+			}}
+			drawerContent={(props) => <DrawerContent {...props} />}
+		>
+			<Drawer.Screen  name="Home" component={Home} />
 		</Drawer.Navigator>
 	);
 }
@@ -92,7 +99,14 @@ function App() {
 						gestureEnabled: false,
 					}}
 				/>
-				<Stack.Screen name="Reading" component={Reading} />
+				<Stack.Screen
+					options={{
+						headerShown: false,
+						gestureEnabled: false,
+					}}
+					name="Reading"
+					component={Reading}
+				/>
 				<Stack.Screen
 					name="Enquery"
 					component={Enquery}

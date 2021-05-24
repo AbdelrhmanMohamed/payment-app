@@ -68,18 +68,13 @@ export default function Enquery({navigation}) {
 								88 جنيه
 							</Text>
 						</View>
-					</View>
-					<View style={{width: "100%"}}>
-						<TouchableOpacity
-							style={styles.circle}
-							onPress={() => setCollpase(!collpase)}
-						>
-							<Feather name="more-horizontal" size={30} color="#999" />
-						</TouchableOpacity>
-						<Collapsible
-							style={{alignItems: "center"}}
-							duration={50}
-							collapsed={collpase}
+						<View
+							style={{
+								alignItems: "center",
+								width: "100%",
+								display: collpase ? "none" : "flex",
+								paddingHorizontal:3
+							}}
 						>
 							<View style={[styles.row, {flexDirection: rtl ? "row" : "row-reverse"}]}>
 								<Text style={[styles.texInfo]}>قراءة سابقة :</Text>
@@ -89,7 +84,16 @@ export default function Enquery({navigation}) {
 								<Text style={[styles.texInfo]}>قراءة حالية :</Text>
 								<Text style={[styles.texInfo, {fontFamily: "cairo-bold"}]}>02135 </Text>
 							</View>
-						</Collapsible>
+						</View>
+					</View>
+					<View style={{width: "100%", paddingVertical:3}}>
+						<TouchableOpacity
+							style={styles.circle}
+							onPress={() => setCollpase(!collpase)}
+						>
+							{/* <Feather name="arrow-button" size={30} color="#999" /> */}
+							<Text style={styles.text}>{collpase ? "تفاصيل اكتر" : "تفاصيل اقل"}</Text>
+						</TouchableOpacity>
 					</View>
 				</View>
 			</ScrollView>
@@ -100,8 +104,7 @@ export default function Enquery({navigation}) {
 const styles = StyleSheet.create({
 	billHeader: {
 		width: w * 0.95,
-		paddingVertical: normalize(4),
-		paddingHorizontal: normalize(4),
+		paddingHorizontal: normalize(8),
 		borderWidth: 1,
 		marginTop: normalize(12, "height"),
 		justifyContent: "space-between",
@@ -146,6 +149,7 @@ const styles = StyleSheet.create({
 		fontSize: normalize(16),
 		color: COLORS.black,
 		padding: normalize(6, "height"),
+		textAlign: "left",
 	},
 	amount: {
 		fontFamily: "cairo-regular",
@@ -156,8 +160,9 @@ const styles = StyleSheet.create({
 	row: {
 		borderColor: "#eee",
 		borderBottomWidth: 1,
-		justifyContent: "center",
+		justifyContent: "space-between",
 		width: "80%",
+		textAlign: "left",
 	},
 	circle: {
 		justifyContent: "center",
@@ -166,5 +171,7 @@ const styles = StyleSheet.create({
 		borderColor: "#ccc",
 		backgroundColor: "#eee",
 		// borderBottomWidth:1,
+		width: "100%",
+		padding:4
 	},
 });

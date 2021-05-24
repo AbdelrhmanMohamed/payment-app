@@ -10,7 +10,7 @@ import normalize from "react-native-normalize";
 
 export default function Home({navigation}) {
 	const handelDrawer = () => {
-		navigation.openDrawer();
+		navigation.toggleDrawer();
 	};
 
 	const handelNavigations = (val) => {
@@ -25,6 +25,7 @@ export default function Home({navigation}) {
 	const IconMenu = () => {
 		return <Feather name="menu" size={26} color={COLORS.black} />;
 	};
+
 	return (
 		<SafeAreaProvider style={Gstyle.AndroidSafeArea}>
 			<Header
@@ -158,6 +159,7 @@ const styles = StyleSheet.create({
 	},
 	fawry: {
 		flexDirection: "row",
+		marginTop:normalize(3)
 	},
 	billInfo: {
 		height: "100%",

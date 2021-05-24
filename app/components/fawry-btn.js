@@ -24,9 +24,12 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		justifyContent: "space-between",
 		alignItems: "center",
-		backgroundColor:"#eee",
-		// marginTop:normalize(6,'height'),
-		paddingHorizontal:normalize(6, 'width')
+		backgroundColor:"#fff",
+		borderWidth:1,
+		borderColor:"#E2E2E2",
+	    marginVertical:normalize(8,'height'),
+		paddingHorizontal:normalize(6, 'width'),
+		padding:normalize(2)
 	},
 	text: {
 		fontSize: normalize(16),
